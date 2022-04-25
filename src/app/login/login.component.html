@@ -4,7 +4,7 @@
         <P class="login">LOGIN </P>
       </div>
       <!-- Login Form -->
-      <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+      <form  (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
         <!-- Input Email -->
         <div class="emailInput">
           <mat-form-field class="full-width" appearance="outline">
@@ -27,11 +27,11 @@
           <!-- Input Password -->
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Password</mat-label>
-            <input formControlName="password" matInput [type]=" hide ? 'password' : 'text'" required [(ngModel)]="data.password" />
+            <input formControlName="password" matInput [type]=" !hide ? 'password' : 'text'" required [(ngModel)]="data.password" />
             <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'"
-            [attr.aria-pressed]="hide">
+            [attr.aria-pressed]="!hide">
             <mat-icon>
-                {{hide ? 'visibility_off' : 'visibility'}}
+                {{hide ? 'visibility' : 'visibility_off'}}
             </mat-icon>
         </button>
         <mat-error *ngIf="!loginForm.controls['password'].valid">
@@ -39,7 +39,7 @@
           </mat-error>
         </mat-form-field>
         </div>
-        <button mat-flat-button color="primary">Login</button>
+        <button [disabled]="!loginForm.controls['email'].valid || !loginForm.controls['password'].valid"  mat-flat-button color="primary">Login</button>
       </form>
 
       <div class="button-row">

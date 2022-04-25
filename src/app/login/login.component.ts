@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router';
 import { ServService } from '../serv.service';
 
 
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   hide: boolean = false;
 
-  constructor(private fb: FormBuilder ,private empService: ServService) {
+  constructor(private fb: FormBuilder ,private empService: ServService,private route:Router) {
   }
    data=
    {
@@ -34,10 +35,13 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm)
      this.empService.getLogin(this.data).subscribe(res=>{
       console.log(res)
+      this.route.navigateByUrl('profile')
 
      },
+     //Error
      err=>{
-       console.log('error')
+       console.log(err)
+       alert(err.error.detail)
      }
      )
   }
